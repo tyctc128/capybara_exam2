@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
+  <meta name="theme-color" content="#21b9ca" />
+  <meta name="description" content="卡皮九九樂園：在 80 秒內敲出正確的九九乘法答案！" />
+  <title>卡皮九九樂園</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main id="app" aria-live="polite">
+    <section id="mapScreen" class="screen map-screen active" aria-label="卡皮九九樂園主地圖">
+      <img class="screen-bg" src="assets/maps/main-map.png" alt="漂浮在水上的卡皮巴拉數學遊樂園" />
+      <header class="map-header glass-panel">
+        <div>
+          <p class="eyebrow">CAPYBARA MATH PARK</p>
+          <h1>卡皮九九樂園</h1>
+        </div>
+        <div class="best-score" aria-label="最佳成績">
+          <span>🏆 最佳</span>
+          <strong id="bestScore">0 / 10</strong>
+        </div>
+      </header>
+
+      <button id="teacherHotspot" class="teacher-hotspot" type="button" aria-label="和水豚老師說話">
+        <img src="assets/sprites/teacher/teacher-1.png" alt="戴著黃色帽子和藍色眼鏡的水豚老師" />
+        <span>水豚老師</span>
+      </button>
+
+      <button id="stageHotspot" class="stage-hotspot" type="button" aria-label="進入九九乘法挑戰">
+        <span class="stage-star">★</span>
+        <span class="stage-label">九九挑戰</span>
+        <small>點一下開始</small>
+      </button>
+
+      <button id="soundToggleMap" class="icon-button map-sound" type="button" aria-label="切換音效">🔊</button>
+    </section>
+
+    <section id="gameScreen" class="screen game-screen" aria-label="九九乘法打卡皮巴拉遊戲">
+      <img class="screen-bg" src="assets/maps/arena-background.png" alt="繽紛的數學遊樂園攤位" />
+
+      <header class="hud" aria-label="遊戲資訊">
+        <div class="timer-card hud-card">
+          <span class="hud-icon">⏱</span>
+          <strong id="timeValue">80</strong>
+        </div>
+        <div id="questionCard" class="question-card hud-card">準備好了嗎？</div>
+        <div class="score-card hud-card">
+          <span>⭐</span>
+          <strong id="scoreValue">0/10</strong>
+        </div>
+        <div id="hearts" class="hearts hud-card" aria-label="剩餘五顆愛心"></div>
+        <button id="pauseButton" class="icon-button pause-button" type="button" aria-label="暫停遊戲">Ⅱ</button>
+      </header>
+
+      <div id="phaseLabel" class="phase-label">熱身時間！</div>
+      <div id="holesGrid" class="holes-grid" aria-label="九個卡皮巴拉洞口"></div>
+      <div id="feedback" class="feedback" role="status"></div>
+      <img id="hammerCursor" class="hammer-cursor" src="assets/sprites/hammer/sheet-transparent.png" alt="" aria-hidden="true" />
+    </section>
+
+    <div id="dialogOverlay" class="overlay hidden" role="dialog" aria-modal="true" aria-labelledby="dialogTitle">
+      <div class="dialog-card">
+        <img class="dialog-teacher" src="assets/sprites/teacher/teacher-1.png" alt="水豚老師" />
+        <div class="dialog-content">
+          <p class="dialog-name">水豚老師</p>
+          <h2 id="dialogTitle">歡迎來到九九挑戰！</h2>
+          <p id="dialogText">準備好用數學拯救樂園了嗎？</p>
+          <div id="dialogDots" class="dialog-dots" aria-hidden="true"></div>
+          <div class="dialog-actions">
+            <button id="dialogBack" class="button button-secondary" type="button">上一句</button>
+            <button id="dialogNext" class="button button-primary" type="button">下一句</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="countdownOverlay" class="overlay countdown-overlay hidden" aria-label="遊戲倒數">
+      <div id="countdownValue" class="countdown-value">3</div>
+    </div>
+
+    <div id="resultOverlay" class="overlay hidden" role="dialog" aria-modal="true" aria-labelledby="resultTitle">
+      <div class="result-card">
+        <div id="resultMascot" class="result-mascot">🏆</div>
+        <p class="eyebrow">CHALLENGE RESULT</p>
+        <h2 id="resultTitle">挑戰成功！</h2>
+        <p id="resultMessage">你完成了九九乘法挑戰！</p>
+        <div class="result-stats">
+          <div><span>答對</span><strong id="resultScore">10 / 10</strong></div>
+          <div><span>剩餘時間</span><strong id="resultTime">20 秒</strong></div>
+        </div>
+        <div class="result-actions">
+          <button id="retryButton" class="button button-primary" type="button">再挑戰一次</button>
+          <button id="mapButton" class="button button-secondary" type="button">返回主地圖</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="pauseOverlay" class="overlay hidden" role="dialog" aria-modal="true" aria-labelledby="pauseTitle">
+      <div class="pause-card">
+        <div class="pause-icon">⏸</div>
+        <h2 id="pauseTitle">休息一下</h2>
+        <p>計時已暫停，準備好再繼續！</p>
+        <button id="resumeButton" class="button button-primary" type="button">繼續遊戲</button>
+        <button id="quitButton" class="button button-secondary" type="button">返回主地圖</button>
+      </div>
+    </div>
+
+    <div class="portrait-hint" aria-hidden="true">
+      <div>↻</div>
+      <p>請將裝置轉為橫向遊玩</p>
+    </div>
+  </main>
+  <script src="game.js" defer></script>
+</body>
+</html>

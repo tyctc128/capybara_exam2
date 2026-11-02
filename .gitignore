@@ -1,0 +1,14 @@
+# Image-generation sources and processing intermediates are not needed at runtime.
+assets/raw/
+assets/concepts/capybara-math-game-version-a.png
+assets/sprites/**/raw-sheet.png
+assets/sprites/**/raw-sheet-clean.png
+assets/sprites/**/pipeline-meta.json
+assets/sprites/capy-pop/pop-*.png
+assets/sprites/capy-pop/sheet-transparent.png
+assets/sprites/capy-hit/hit-*.png
+assets/sprites/capy-hit/sheet-transparent.png
+assets/sprites/teacher/animation.gif
+assets/sprites/teacher/sheet-transparent.png
+assets/sprites/hammer/animation.gif
+assets/sprites/hammer/hammer-1.png
